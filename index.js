@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/users');
 const searchRoutes = require('./routes/search');
+const comments = require('./routes/comments');
 const app = express()
 
 
@@ -30,6 +31,7 @@ database.once('connected', () => {
 
 app.use('/api/users', userRoutes)
 app.use('/api/search', searchRoutes)
+app.use('/api/comments', comments)
 
 
 

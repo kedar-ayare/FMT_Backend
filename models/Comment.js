@@ -18,7 +18,6 @@ const Comment = mongoose.Schema({
     ],
     view: {
         type: Boolean,
-        required: true,
         default: false
     }
 })

@@ -7,7 +7,12 @@ const Comment = require("../models/Comment")
 const tokenVerify = require("../middlewares/auth");
 
 
-
+/*
+    '/' - POST
+    EndPoint that adds a new comment into the database
+    Requires 'content' in the body
+    Leaves the 'replies' field empty
+*/
 router.post('/', tokenVerify, async (req, res) => {
     var comment = req.body;
 
@@ -24,7 +29,15 @@ router.post('/', tokenVerify, async (req, res) => {
 })
 
 
-router.post('/', tokenVerify, async (req, res) => {
+/*
+    '/reply' - POST
+    EndPoint that adds a new comment into the database
+    Requires 'content' and 'commentId' in the body
+    commentId - refers to the comment for which the reply is for
+    Leaves the 'replies' field empty
+*/
+router.post('/reply', tokenVerify, async (req, res) => {
+    console.log("kjn")
     var reply = Comment({
         content: req.body.content,
         userId: req.User
@@ -38,11 +51,36 @@ router.post('/', tokenVerify, async (req, res) => {
             }
         }
     )
+    res.send("Reply added successfully")
 })
 
 
-router.get('/', tokenVerify, (req, res) => {
+/*
+    '/:id' - GET
+    Fetches the comment and it's replies
+    Comment Id in params
+*/
+router.get('/:id', tokenVerify, async (req, res) => {
+    var comment = await Comment.findOne({
+        _id: req.params.id
+    }).populate('replies');
+    res.send("Ksldkvn")
+})
 
+
+
+/*
+    '/:id' - DELETE
+    Deletes a comment and it's replies
+    Requires Comment Id as part of request in params
+*/
+router.delete('/:id', tokenVerify, async (req, res) => {
+    var comment = await Comment.findById(id = req.params.id);
+    comment["replies"].forEach(async (element) => {
+        await Comment.deleteOne({ _id: element })
+    });
+    await Comment.deleteOne({ _id: comment._id })
+    res.send("Comment and assoicated replies deleted successfully")
 })
 
 

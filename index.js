@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const userRoutes = require('./routes/users');
 const searchRoutes = require('./routes/search');
 const comments = require('./routes/comments');
+const request = require('./routes/relationships');
 const app = express()
 
 
@@ -32,6 +33,7 @@ database.once('connected', () => {
 app.use('/api/users', userRoutes)
 app.use('/api/search', searchRoutes)
 app.use('/api/comments', comments)
+app.use('/api/request', request)
 
 
 
@@ -41,4 +43,5 @@ app.use('/api/comments', comments)
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjBmODAwODJhNjNlOGVlZjJjYTgyNSIsImVtYWlsIjoia2VkYXJheWFyZWlsckBnbWFpbC5jb20iLCJpYXQiOjE2ODQwNzY1NDQsImV4cCI6MTY5MTg1MjU0NH0.qtzye4Y8P0mZxHJf4RxYXbSpaVaKDIA21pLEJg25Qx0
 
 
+// Shrawani
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjI1MzRkMDQxODRhMDkwZmEwZWJlZiIsImVtYWlsIjoia2VkYXJheWFyZWlsckBnbWFpbC5jb20iLCJpYXQiOjE2ODQxNjU0NTMsImV4cCI6MTY5MTk0MTQ1M30.Tn_xn8NYNVEN_ugGNAzwi8ILjxH8e1yifCK2nqneit0

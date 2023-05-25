@@ -64,7 +64,7 @@ const User = mongoose.Schema({
     pendingReqs: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Requests"
+            ref: "Request"
         }
     ],
     posts: [

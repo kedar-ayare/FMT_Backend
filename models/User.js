@@ -77,7 +77,10 @@ const User = mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
         }
-    ]
+    ],
+    profileURL: {
+        type: String,
+    }
 
 })
 

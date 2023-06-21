@@ -1,0 +1,15 @@
+{"level":"info","message":"Server started","timestamp":"2023-06-21T07:46:57.440Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:46:57.444Z"}
+{"level":"info","message":"Server started","timestamp":"2023-06-21T07:47:59.144Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:47:59.149Z"}
+{"level":"info","message":"Server started","timestamp":"2023-06-21T07:48:00.633Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:48:00.638Z"}
+{"level":"info","message":"Server started","timestamp":"2023-06-21T07:48:06.070Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:48:06.073Z"}
+{"level":"info","message":"Server started","timestamp":"2023-06-21T07:48:11.153Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:48:11.157Z"}
+{"level":"info","message":"Request - IP: ::ffff:127.0.0.1, Endpoint: /api/users/, User ID: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjBmODAwODJhNjNlOGVlZjJjYTgyNSIsImVtYWlsIjoia2VkYXJheWFyZWlsckBnbWFpbC5jb20iLCJpYXQiOjE2ODQwNzY1NDQsImV4cCI6MTY5MTg1MjU0NH0.qtzye4Y8P0mZxHJf4RxYXbSpaVaKDIA21pLEJg25Qx0","timestamp":"2023-06-21T07:48:18.887Z"}
+{"level":"info","message":"Request - IP: ::1, Endpoint: /api/users/, User ID: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjBmODAwODJhNjNlOGVlZjJjYTgyNSIsImVtYWlsIjoia2VkYXJheWFyZWlsckBnbWFpbC5jb20iLCJpYXQiOjE2ODQwNzY1NDQsImV4cCI6MTY5MTg1MjU0NH0.qtzye4Y8P0mZxHJf4RxYXbSpaVaKDIA21pLEJg25Qx0","timestamp":"2023-06-21T07:50:05.487Z"}
+{"level":"info","message":"Server started","timestamp":"2023-06-21T07:53:38.202Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:53:38.205Z"}
+{"level":"info","message":"Request - IP: ::1, Endpoint: /api/users/, User ID: 6460f80082a63e8eef2ca825","timestamp":"2023-06-21T07:53:53.280Z"}

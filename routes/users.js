@@ -20,15 +20,16 @@ const { config } = require('dotenv');
 router.post('/', async (req, res) => {
     var dob = new Date();
     const newUser = Users({
-        fname: 'Shrawani',
+        fname: 'Revati',
         lname: 'Ayare',
         gender: 'Female',
         dob: Date(),
-        email: 'shrawaniayareilr@gmail.com',
-        password: 'shrawaniayare',
-        phone: '8692056125',
+        email: 'Revatiayare@gmail.com',
+        password: 'Revatiayare',
+        phone: '8692056130',
         edu: 'High School',
         empStatus: 'unemployed',
+        profileURL: "https://myfamtree.000webhostapp.com/appImages/revati.jpg"
 
     });
     await newUser.save();
@@ -61,11 +62,14 @@ router.get('/', async (req, res) => {
 
 
 
-
-
-router.put('/:id', (req, res) => {
+router.put('/', (req, res) => {
     res.send("Update a user")
 })
+
+
+// router.put('/:id', (req, res) => {
+//     res.send("Update a user")
+// })
 
 router.delete('/:id', (req, res) => {
     res.send("Delete a user")

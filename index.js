@@ -6,6 +6,8 @@ const userRoutes = require('./routes/users');
 const searchRoutes = require('./routes/search');
 const comments = require('./routes/comments');
 const request = require('./routes/relationships');
+const validation = require('./routes/validation');
+
 const winston = require('winston');
 const tokenVerify = require('./middlewares/auth');
 
@@ -47,27 +49,28 @@ database.once('connected', () => {
     console.log('Database Connected');
 })
 
-app.use(tokenVerify, (req, res, next) => {
-    // Extract and log the user's IP address
-    const userIP = req.ip;
+// app.use(tokenVerify, (req, res, next) => {
+//     // Extract and log the user's IP address
+//     const userIP = req.ip;
 
-    // Extract and log the API endpoint the user is requesting
-    const apiEndpoint = req.originalUrl;
+//     // Extract and log the API endpoint the user is requesting
+//     const apiEndpoint = req.originalUrl;
 
-    // Extract and log the user ID from the request headers
-    const userID = req.User;
+//     // Extract and log the user ID from the request headers
+//     const userID = req.User;
 
-    // Log the request details along with the additional information
-    logger.info(`Request - IP: ${userIP}, Endpoint: ${apiEndpoint}, User ID: ${userID}`);
+//     // Log the request details along with the additional information
+//     logger.info(`Request - IP: ${userIP}, Endpoint: ${apiEndpoint}, User ID: ${userID}`);
 
-    next();
-});
+//     next();
+// });
 
 
 app.use('/api/users', userRoutes)
 app.use('/api/search', searchRoutes)
 app.use('/api/comments', comments)
 app.use('/api/request', request)
+app.use('/api/validation', validation)
 
 
 

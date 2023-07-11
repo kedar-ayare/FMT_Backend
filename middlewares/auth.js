@@ -7,8 +7,8 @@ async function tokenVerify(req, res, next) {
     // no token
     if (!attatchedToken) {
         req.auth = { isAuthenticated: false };
-        req.log("unauthenticated (no jwt)");
-        return next();
+        console.log("unauthenticated (no jwt)");
+        res.json({ err: "ValErr-01" })
     }
 
 
@@ -17,7 +17,7 @@ async function tokenVerify(req, res, next) {
         req.User = decoded.id;
         return next();
     } catch (err) {
-        res.send("Not a valid token")
+        res.json({ err: "ValErr-02" })
     }
 }
 

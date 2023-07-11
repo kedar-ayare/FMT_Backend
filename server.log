@@ -13,3 +13,127 @@
 {"level":"info","message":"Server started","timestamp":"2023-06-21T07:53:38.202Z"}
 {"level":"error","message":"An error occurred","timestamp":"2023-06-21T07:53:38.205Z"}
 {"level":"info","message":"Request - IP: ::1, Endpoint: /api/users/, User ID: 6460f80082a63e8eef2ca825","timestamp":"2023-06-21T07:53:53.280Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:10:58.450Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:10:58.454Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:12:27.358Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:12:27.366Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:13:29.570Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:13:29.573Z"}
+{"level":"info","message":"Request - IP: ::ffff:127.0.0.1, Endpoint: /api/login/, User ID: undefined","timestamp":"2023-07-09T12:13:35.144Z"}
+{"level":"info","message":"Request - IP: ::ffff:127.0.0.1, Endpoint: /api/users/login/, User ID: undefined","timestamp":"2023-07-09T12:14:03.466Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:14:41.774Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:14:41.778Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:15:12.829Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:15:12.833Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:16:43.481Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:16:43.485Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:18:04.342Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:18:04.345Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:19:29.186Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:19:29.189Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:20:07.436Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:20:07.440Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:32:49.256Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:32:49.260Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-09T12:33:42.520Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-09T12:33:42.524Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:16:20.094Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:16:20.374Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:20:16.042Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:20:16.060Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:33:25.621Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:33:25.625Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:35:27.375Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:35:27.378Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:51:12.767Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:51:12.770Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:55:43.621Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:55:43.625Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:56:23.452Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:56:23.457Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:56:30.366Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:56:30.370Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:57:43.321Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:57:43.325Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:58:10.955Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:58:10.958Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:59:18.325Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:59:18.328Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:59:37.600Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:59:37.603Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T11:59:58.479Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T11:59:58.484Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:00:03.401Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:00:03.405Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:00:42.839Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:00:42.842Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:00:48.825Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:00:48.832Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:00:57.571Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:00:57.574Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:01:22.285Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:01:22.290Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:01:32.185Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:01:32.188Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:01:53.518Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:01:53.521Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:02:14.331Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:02:14.335Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:02:34.269Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:02:34.273Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:03:00.332Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:03:00.339Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:03:07.908Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:03:07.912Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:05:38.976Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:05:38.980Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-10T12:08:31.419Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-10T12:08:31.423Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T05:50:20.492Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T05:50:20.517Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:10:37.687Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:10:37.719Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:13:25.298Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:13:25.301Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:15:57.894Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:15:57.897Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:19:09.308Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:19:09.311Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:19:40.325Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:19:40.328Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:19:51.186Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:19:51.190Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:20:17.276Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:20:17.280Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:20:35.002Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:20:35.006Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:22:52.068Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:22:52.071Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:23:17.595Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:23:17.599Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:24:07.479Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:24:07.482Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:25:09.921Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:25:09.924Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:25:38.900Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:25:38.903Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:26:01.706Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:26:01.709Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:28:27.138Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:28:27.140Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:28:33.785Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:28:33.789Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:29:00.529Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:29:00.532Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:29:06.051Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:29:06.056Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:30:12.255Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:30:12.259Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:30:42.197Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:30:42.200Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:31:05.767Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:31:05.771Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:31:21.895Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:31:21.899Z"}
+{"level":"info","message":"Server started","timestamp":"2023-07-11T11:31:57.030Z"}
+{"level":"error","message":"An error occurred","timestamp":"2023-07-11T11:31:57.033Z"}

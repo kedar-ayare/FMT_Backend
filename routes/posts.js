@@ -1,10 +1,23 @@
-const { request } = require('express');
+
 const express = require('express');
+const multer = require('multer')
+
+const Posts = require("../models/Post")
+
+
+
+const upload = multer({ dest: 'uploads' })
 
 const router = express.Router()
 
-router.post('/', (req, res) => {
+router.post('/', upload.array('image', 10), (req, res) => {
+    const imagePaths = req.files.map(file => file.path);
+    console.log(imagePaths);
     res.send("Create a new post")
+})
+
+router.get('/', async (req, res) => {
+    res.send("Get all posts")
 })
 
 router.get('/:id', (req, res) => {

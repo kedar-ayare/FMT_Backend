@@ -13,19 +13,44 @@ const tokenVerify = require("../middlewares/auth");
     Takes string in body, and uses it for pattern matching
     for first and last name fields.
 */
-router.post('/', tokenVerify, async (req, res) => {
-    // console.log(req.body.name);
-    // var users = await Users.find({ fname: { $regex: req.body.name, $options: 'i' } });
-    var searchQuery = req.body.name.split(" ");
-    var users = await Users.find({
-        $or: [
-            { fname: { $regex: new RegExp(searchQuery.join('|')), $options: 'i' } },
-            { lname: { $regex: new RegExp(searchQuery.join('|')), $options: 'i' } },
-        ]
-    });
-    console.log(users);
-    res.send("Route to get search results")
-})
+router.get('/:name', tokenVerify, async (req, res) => {
+    var searchQuery = req.params.name.split(" ");
+    var users = await Users.aggregate([
+        {
+            $addFields: {
+                fullName: { $concat: ["$fname", " ", "$lname"] }
+            }
+        },
+        {
+            $addFields: {
+                matchCount: {
+                    $size: {
+                        $setIntersection: [
+                            {
+                                $split: [
+                                    { $toLower: "$fullName" },
+                                    " "
+                                ]
+                            },
+                            { $map: { input: searchQuery, as: "query", in: { $toLower: "$$query" } } }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            $match: {
+                $or: [
+                    { fname: { $regex: new RegExp(searchQuery.join('|')), $options: 'i' } },
+                    { lname: { $regex: new RegExp(searchQuery.join('|')), $options: 'i' } },
+                ]
+            }
+        },
+        { $sort: { matchCount: -1 } }
+    ]);
+    res.json(users);
+});
+
 
 
 
@@ -79,21 +104,21 @@ router.post('/delete', tokenVerify, async (req, res) => {
 
 
 
-/*
-    '/' - GET
-    Route to get details of all users in the current user's searched list
-*/
-router.get('/', tokenVerify, async (req, res) => {
-    var searchedUSers = [];
-    var user = await Users.findOne({
-        _id: req.User
-    })
+// /*
+//     '/' - GET
+//     Route to get details of all users in the current user's searched list
+// */
+// router.get('/', tokenVerify, async (req, res) => {
+//     var searchedUSers = [];
+//     var user = await Users.findOne({
+//         _id: req.User
+//     })
 
-    for (var user of user["searched"]) {
-        const userDets = await Users.findOne({ _id: user })
-        searchedUSers.push(userDets);
-    }
-    res.send(searchedUSers)
-})
+//     for (var user of user["searched"]) {
+//         const userDets = await Users.findOne({ _id: user })
+//         searchedUSers.push(userDets);
+//     }
+//     res.send(searchedUSers)
+// })
 
 module.exports = router

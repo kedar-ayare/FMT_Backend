@@ -78,6 +78,16 @@ const User = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
         }
     ],
+    followers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+        }
+    ],
+    following: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+        }
+    ],
     profileURL: {
         type: String,
     }

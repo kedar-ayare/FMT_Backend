@@ -25,6 +25,11 @@ const Post = mongoose.Schema({
     datetime: {
         type: Date,
         required: true
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     }
 })
 

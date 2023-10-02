@@ -7,6 +7,8 @@ const searchRoutes = require('./routes/search');
 const comments = require('./routes/comments');
 const request = require('./routes/relationships');
 const validation = require('./routes/validation');
+const test = require('./routes/test')
+const posts = require('./routes/posts')
 
 const winston = require('winston');
 const tokenVerify = require('./middlewares/auth');
@@ -38,8 +40,10 @@ app.listen(3000, () => {
 
 // CONNECTION WITH DATABASE
 const mongoString = process.env.DATABASE_URL
+console.log(process.env.DB_URL)
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_URL);
+
 const database = mongoose.connection
 
 database.on('error', (error) => {
@@ -67,10 +71,12 @@ database.once('connected', () => {
 
 
 app.use('/api/users', userRoutes)
+app.use('/api/posts', posts)
 app.use('/api/search', searchRoutes)
 app.use('/api/comments', comments)
 app.use('/api/request', request)
 app.use('/api/validation', validation)
+app.use('/api/test', test)
 
 
 

@@ -7,6 +7,7 @@ const Users = require("../models/User")
 const tokenVerify = require("../middlewares/auth");
 const { config } = require('dotenv');
 const decrypt = require("../utilities.js/decrpyt")
+const encrypt = require("../utilities.js/encrypt")
 
 
 
@@ -50,7 +51,6 @@ router.post('/', async (req, res) => {
 */
 router.post('/login/', async (req, res) => {
 
-
     var userEmail = await decrypt(req.body.email);
     console.log(userEmail)
 
@@ -62,7 +62,8 @@ router.post('/login/', async (req, res) => {
     } else {
         var userPassword = await decrypt(req.body.password)
         try {
-            var user = await Users.findOne({ email: userEmail });
+            console.log("Incoming:", userEmail)
+            var user = await Users.findOne({ email: "kedarayareilr@gmail.com" });
         } catch (error) {
             console.log(error)
         }
@@ -72,8 +73,13 @@ router.post('/login/', async (req, res) => {
             console.log("LogErr - 02")
         }
         else if (user.password == userPassword) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRETE, { expiresIn: '90d' });
-            res.json({ token })
+            const _token = jwt.sign({ id: user._id }, process.env.JWT_SECRETE, { expiresIn: '90d' })
+            // console.log(_token)
+            console.log("Login Success")
+            const eToken = await encrypt(_token)
+            const eUSerId = await encrypt(user._id.toString())
+
+            res.send({ token: eToken, userID: eUSerId })
         } else {
             res.send({ err: "LogErr - 03" })
             console.log("LogErr - 03")
@@ -102,5 +108,64 @@ router.delete('/:id', (req, res) => {
     res.send("Delete a user")
 })
 
+
+router.get('/', tokenVerify, async (req, res) => {
+
+    try {
+        const user = await Users.findOne({ "_id": req.User });
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+        console.log(user);
+        res.send(user);
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).send({ error: "Internal server error" });
+    }
+});
+
+
+
+router.get('/:id', tokenVerify, async (req, res) => {
+    try {
+        const user = await Users.findOne({ "_id": req.params.id });
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+        fieldsToRemove = [
+            "password",
+            "legacy",
+            "pendingReqs",
+            "searched",
+            "__v",
+        ]
+
+        fieldsToRemove.forEach(element => {
+            user[element] = undefined
+        });
+        console.log(user);
+        res.send(user);
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).send({ error: "Internal server error" });
+    }
+});
+
+
+
+
+
+
+//Router to get info of loggedin User
+// router.get('/', tokenVerify, async (req, res) => {
+//     // console.log(req.User)
+//     const user = await Users.findOne({ email: "kedarayareilr@gmail.com" })
+//     console.log(user)
+//     // res.send({ "name": "Kedar" })
+
+
+
+
+// })
 
 module.exports = router

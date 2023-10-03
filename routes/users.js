@@ -92,23 +92,11 @@ router.post('/login/', async (req, res) => {
 })
 
 
-
-
-
-router.put('/', (req, res) => {
-    res.send("Update a user")
-})
-
-
-// router.put('/:id', (req, res) => {
-//     res.send("Update a user")
-// })
-
-router.delete('/:id', (req, res) => {
-    res.send("Delete a user")
-})
-
-
+/*
+    '/' - GET
+    Route to get data of the loggedIn user
+    Used for the user's profile page
+*/
 router.get('/', tokenVerify, async (req, res) => {
 
     try {
@@ -126,6 +114,11 @@ router.get('/', tokenVerify, async (req, res) => {
 
 
 
+/*
+    '/:id' - GET
+    Route to get data of the user 
+    the loggedIn user visits
+*/
 router.get('/:id', tokenVerify, async (req, res) => {
     try {
         const user = await Users.findOne({ "_id": req.params.id });
@@ -154,6 +147,15 @@ router.get('/:id', tokenVerify, async (req, res) => {
 
 
 
+
+
+router.put('/', (req, res) => {
+    res.send("Update a user")
+})
+
+router.delete('/:id', (req, res) => {
+    res.send("Delete a user")
+})
 
 
 //Router to get info of loggedin User

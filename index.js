@@ -9,6 +9,7 @@ const request = require('./routes/relationships');
 const validation = require('./routes/validation');
 const test = require('./routes/test')
 const posts = require('./routes/posts')
+const follow = require('./routes/follower')
 
 const winston = require('winston');
 const tokenVerify = require('./middlewares/auth');
@@ -77,7 +78,7 @@ app.use('/api/comments', comments)
 app.use('/api/request', request)
 app.use('/api/validation', validation)
 app.use('/api/test', test)
-
+app.use('/api/follow', follow)
 
 
 

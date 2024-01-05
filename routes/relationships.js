@@ -4,7 +4,7 @@ const express = require('express');
 const tokenVerify = require("../middlewares/auth");
 const router = express.Router()
 
-const Request = require("../models/Requests")
+const Request = require("../models/ConnectReq")
 const User = require("../models/User")
 
 var relations = {

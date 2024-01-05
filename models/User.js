@@ -61,7 +61,13 @@ const User = mongoose.Schema({
             ref: "User"
         }
     ],
-    pendingReqs: [
+    followReqs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Request"
+        }
+    ],
+    connectReqs: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Request"
@@ -90,6 +96,10 @@ const User = mongoose.Schema({
     ],
     profileURL: {
         type: String,
+    },
+    accountStat: {
+        type: String,
+        enum: ["Private", "Public"]
     }
 
 })

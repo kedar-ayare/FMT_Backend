@@ -7,9 +7,10 @@ const searchRoutes = require('./routes/search');
 const comments = require('./routes/comments');
 const request = require('./routes/relationships');
 const validation = require('./routes/validation');
-const test = require('./routes/test')
-const posts = require('./routes/posts')
-const follow = require('./routes/follower')
+const test = require('./routes/test');
+const posts = require('./routes/posts');
+const follow = require('./routes/follower');
+const connect = require('./routes/connect');
 
 const winston = require('winston');
 const tokenVerify = require('./middlewares/auth');
@@ -43,7 +44,7 @@ app.listen(3000, () => {
 const mongoString = process.env.DATABASE_URL
 console.log(process.env.DB_URL)
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.DB_URL);
+mongoose.connect(process.env.DB_URL, { useUnifiedTopology: true });
 
 const database = mongoose.connection
 
@@ -79,7 +80,7 @@ app.use('/api/request', request)
 app.use('/api/validation', validation)
 app.use('/api/test', test)
 app.use('/api/follow', follow)
-
+app.use('/api/connect', connect)
 
 
 

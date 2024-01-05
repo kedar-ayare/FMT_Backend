@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const Request = mongoose.Schema({
+const ConnectReq = mongoose.Schema({
     senderId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
@@ -24,7 +24,11 @@ const Request = mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    timestamp: {
+        type: String,
+        required: true
     }
 })
 
-module.exports = mongoose.model("Request", Request)
+module.exports = mongoose.model("connectReq", ConnectReq)

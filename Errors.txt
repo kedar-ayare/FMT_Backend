@@ -1,0 +1,17 @@
+Validation Errors:
+1. ValError-01 = No Attached Token
+2. ValError-02 = Token Either Expired or Invalid Token
+
+
+Follow Error:
+1. FollowErr-01 = No User2 Id in the request parameter
+2. FollowErr-02 = Error Saving the New Request in DB.
+3. FollowErr-03 = Error processing the Accept Request Transactions
+4. FollowErr-04 = Error processing the Decline Request Transactions
+5. FollowErr-05 = Error processing the Follow process Transactions
+6. Followers-06 = Error processing the UnFollow process Transactions
+
+
+Connect Error:
+1. ConnectErr-01 = No USer2 Id in the request parameter
+2. ConnectErr-02 = Error saving the New Request in DB

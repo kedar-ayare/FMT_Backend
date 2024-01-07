@@ -15,3 +15,6 @@ Follow Error:
 Connect Error:
 1. ConnectErr-01 = No USer2 Id in the request parameter
 2. ConnectErr-02 = Error saving the New Request in DB
+3. ConnectErr-03 = Error processing the Request Decline Transactions
+
+5. ConnectErr-05 = Error processing the Un Connect process transactions

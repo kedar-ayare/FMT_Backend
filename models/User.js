@@ -100,6 +100,14 @@ const User = mongoose.Schema({
     accountStat: {
         type: String,
         enum: ["Private", "Public"]
+    },
+    wife: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: undefined
+    },
+    husband: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: undefined
     }
 
 })

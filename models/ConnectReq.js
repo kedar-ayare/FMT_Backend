@@ -28,7 +28,8 @@ const ConnectReq = mongoose.Schema({
     timestamp: {
         type: String,
         required: true
-    }
+    },
+
 })
 
 module.exports = mongoose.model("connectReq", ConnectReq)

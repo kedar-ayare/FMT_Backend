@@ -33,6 +33,8 @@ router.post('/request/:id', tokenVerify, async (req, res) => {
             timestamp: new Date()
         })
 
+        let success = 0
+
         try {
 
             //Saving the newly created Request
@@ -43,12 +45,17 @@ router.post('/request/:id', tokenVerify, async (req, res) => {
             user.followReqs.push(newReq._id)
             await user.save();
 
+            success = 1
+
         } catch (err) {
             session.abortTransaction()
             console.log(err)
             res.send({ err: "ErrorVal-02" })
         } finally {
             session.endSession();
+        }
+
+        if (success) {
             res.send({ err: "OK" })
         }
     } else {
@@ -74,6 +81,8 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
         const session = await mongoose.startSession()
         session.startTransaction();
 
+        let success = 0
+
         try {
 
             //Updating Request Status to Accepted
@@ -98,15 +107,18 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
                 { new: true }
             )
 
+            success = 1
         } catch (err) {
             console.log(err)
             session.abortTransaction()
             res.send({ err: "FollowErr-03" })
         } finally {
             session.endSession()
-            res.send({ err: "OK" })
         }
 
+        if (success) {
+            res.send({ err: "OK" })
+        }
     } else {
         res.send({ err: "FollowErr-01" })
     }
@@ -129,6 +141,7 @@ router.post('/decline/:reqId', tokenVerify, async (req, res) => {
         const session = await mongoose.startSession();
         session.startTransaction();
 
+        let success = 0
         try {
 
             //Updating Request Status Field to Declined
@@ -146,14 +159,18 @@ router.post('/decline/:reqId', tokenVerify, async (req, res) => {
                     $pull: { followReqs: request._id }
                 }
             )
+
+            success = 1
         } catch (err) {
             session.abortTransaction()
             res.send({ err: "FollowErr-04" })
         } finally {
             session.endSession()
-            res.send({ err: "OK" })
         }
 
+        if (success) {
+            res.send({ err: "OK" })
+        }
     } else {
         res.send({ err: "FollowErr-01" })
     }
@@ -175,6 +192,8 @@ router.post('/follow/:id', tokenVerify, async (req, res) => {
         const session = await mongoose.startSession()
         session.startTransaction()
 
+        let success = 0
+
         try {
 
             //Adding Receiver User's Id to Sender User's Following Array
@@ -189,11 +208,15 @@ router.post('/follow/:id', tokenVerify, async (req, res) => {
                 { $push: { followers: req.User } }
             )
 
+            success = 1
         } catch (err) {
             session.abortTransaction()
             res.send({ err: "FollowErr-05" })
         } finally {
             session.endSession()
+        }
+
+        if (success) {
             res.send({ err: "OK" })
         }
 
@@ -218,6 +241,8 @@ router.post('/unfollow/:id', tokenVerify, async (req, res) => {
         const session = await mongoose.startSession()
         session.startTransaction()
 
+        let success = 0
+
         try {
 
             //Removing Receiver User's Id from Sender User's Following Array
@@ -234,11 +259,16 @@ router.post('/unfollow/:id', tokenVerify, async (req, res) => {
                 { new: true }
             )
 
+            success = 1
+
         } catch (err) {
             session.abortTransaction()
             res.send({ err: "FollowErr-06" })
         } finally {
             session.endSession()
+        }
+
+        if (success) {
             res.send({ err: "OK" })
         }
 

@@ -19,11 +19,15 @@ Requires the relation type in request body
 */
 router.post('/request/:id', tokenVerify, async (req, res) => {
     if (req.params.id !== "") {
+
+        //Session to avoid data Inconsistancy
         const session = await mongoose.startSession();
         session.startTransaction()
 
         let success = 0;
         try {
+
+            //New Request Creation
             const request = new ConnectReq({
                 senderId: req.User,
                 receiverId: req.params.id,
@@ -32,6 +36,7 @@ router.post('/request/:id', tokenVerify, async (req, res) => {
             })
             await request.save()
 
+            //Adding ReqId to Receiver's ConnectReqs
             await Users.findOneAndUpdate(
                 { _id: req.params.id },
                 { $push: { connectReqs: request._id } }
@@ -54,8 +59,15 @@ router.post('/request/:id', tokenVerify, async (req, res) => {
 })
 
 
+/*
+POST - /accept/:id
+When User accepts a connection request
+Requires the request Id in the params
+*/
 router.post('/accept/:reqId', tokenVerify, async (req, res) => {
     if (req.params.id !== "" || req.body.relation !== "") {
+
+        //Session to avoid Data Inconsistancy
         const session = await mongoose.startSession()
         session.startTransaction()
 
@@ -63,18 +75,22 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
         try {
 
 
-
+            // Changing the Request Status To Accepted
             const request = await ConnectReq.findOne({ _id: req.params.reqId })
             request.status = "Accepted"
             request.save()
 
+
             if (request.relType == "Brother" || request.relType == "Sister") {
+
+
+                //Adding Receiver to Sender's Siblings Array
                 await Users.findOneAndUpdate(
                     { _id: request.senderId },
                     { $push: { siblings: request.receiverId } }
                 )
 
-
+                //Adding Sender to Receiver's Siblings Array
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
                     {
@@ -83,54 +99,55 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
                     }
                 )
 
+            } else if (request.relType == "Mother" || request.relType == "Father") {
 
 
-            }
-
-            if (request.relType == "Mother" || request.relType == "Father") {
+                // Adding Receiver to Sender's Parents Array
                 await Users.findOneAndUpdate(
                     { _id: request.senderId },
                     { $push: { parents: request.receiverId } }
                 );
 
+                // Adding Sender to Receiver's Children Array
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
                     { $push: { children: request.senderId } }
                 );
-            }
+            } else if (request.relType == "Son" || request.relType == "Daughter") {
 
-            if (request.relType == "Son" || request.relType == "Daughter") {
+                // Adding Receiver to Sender's Children Array 
                 await Users.findOneAndUpdate(
                     { _id: request.senderId },
                     { $push: { children: request.receiverId } }
                 )
 
+                //Adding Sender to Receiver's Parents Array
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
                     { $push: { parents: request.senderId } }
                 )
-            }
+            } else if (request.relType == "Wife") {
 
-            if (request.relType == "Wife") {
-
+                // Adding Receiver as Sender's Wife
                 const user1 = await Users.findOne({ _id: request.senderId })
                 user1.wife = request.receiverId
                 await user1.save()
 
+                //Adding Sender as Receiver's Husband
                 const user2 = await Users.findOne({ _id: request.receiverId })
                 user2.husband = request.senderId
                 await user2.save()
 
-            }
-
-            if (request.relType == "Husband") {
+            } else if (request.relType == "Husband") {
 
 
+                //Adding Receiver as Sender's Husband
                 await Users.findOneAndUpdate(
                     { _id: request.senderId },
                     { husband: request.receiverId },
                 )
 
+                // Adding Sender as Receiver's Husband
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
                     { wife: request.senderId }
@@ -173,10 +190,14 @@ router.post('/decline/:reqId', tokenVerify, async (req, res) => {
         let success = 0;
 
         try {
+
+            //Changing Status of Request to Declined
             const request = await ConnectReq.findOne({ _id: req.params.reqId })
             request.status = "Declined"
             await request.save()
 
+
+            //Removing ReqId from Receiver's ConnectREqs Array
             await Users.findOneAndUpdate(
                 { _id: request.receiverId },
                 { $pull: { connectReqs: request._id } }
@@ -219,6 +240,7 @@ router.post('/unConnect/:id', tokenVerify, async (req, res) => {
             const user1 = await Users.findOne({ _id: req.User })
 
             if (user1.husband != undefined && user1.husband == req.params.id) {
+
                 await Users.findOneAndUpdate(
                     { _id: req.params.id },
                     { $unset: { wife: 1 } }

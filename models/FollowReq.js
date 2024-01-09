@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const FollowReq = mongoose.Schema({
+const FollowReqs = mongoose.Schema({
     senderId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
@@ -26,4 +26,4 @@ const FollowReq = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("FollowReq", FollowReq)
+module.exports = mongoose.model("FollowReqs", FollowReqs)

@@ -64,13 +64,13 @@ const User = mongoose.Schema({
     followReqs: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Request"
+            ref: "FollowReqs"
         }
     ],
     connectReqs: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Request"
+            ref: "ConnectReqs"
         }
     ],
     posts: [

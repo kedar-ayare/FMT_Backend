@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const ConnectReq = mongoose.Schema({
+const ConnectReqs = mongoose.Schema({
     senderId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
@@ -32,4 +32,4 @@ const ConnectReq = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model("connectReq", ConnectReq)
+module.exports = mongoose.model("ConnectReqs", ConnectReqs)

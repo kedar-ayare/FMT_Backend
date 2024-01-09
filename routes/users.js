@@ -121,7 +121,9 @@ router.get('/', tokenVerify, async (req, res) => {
 */
 router.get('/:id', tokenVerify, async (req, res) => {
     try {
-        const user = await Users.findOne({ "_id": req.params.id });
+        const user = await Users.findOne({ "_id": req.params.id })
+            .populate('followReqs')
+            .populate('connectReqs');
         if (!user) {
             return res.status(404).send({ error: "User not found" });
         }
@@ -136,7 +138,6 @@ router.get('/:id', tokenVerify, async (req, res) => {
         fieldsToRemove.forEach(element => {
             user[element] = undefined
         });
-        console.log(user);
         res.send(user);
     } catch (error) {
         console.error("Error fetching user:", error);

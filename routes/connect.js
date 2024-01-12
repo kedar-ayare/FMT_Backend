@@ -111,7 +111,10 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
                 // Adding Sender to Receiver's Children Array
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
-                    { $push: { children: request.senderId } }
+                    {
+                        $push: { children: request.senderId },
+                        $pull: { connectReqs: request._id }
+                    }
                 );
             } else if (request.relType == "Son" || request.relType == "Daughter") {
 
@@ -124,19 +127,28 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
                 //Adding Sender to Receiver's Parents Array
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
-                    { $push: { parents: request.senderId } }
+                    {
+                        $push: { parents: request.senderId },
+                        $pull: { connectReqs: request._id }
+                    }
                 )
             } else if (request.relType == "Wife") {
 
                 // Adding Receiver as Sender's Wife
-                const user1 = await Users.findOne({ _id: request.senderId })
-                user1.wife = request.receiverId
-                await user1.save()
+                await Users.findOneAndUpdate(
+                    { _id: request.senderId },
+                    { wife: request.receiverId }
+                )
+
 
                 //Adding Sender as Receiver's Husband
-                const user2 = await Users.findOne({ _id: request.receiverId })
-                user2.husband = request.senderId
-                await user2.save()
+                await Users.findOneAndUpdate(
+                    { _id: request.receiverId },
+                    {
+                        husband: request.senderId,
+                        $pull: { connectReqs: request._id }
+                    }
+                )
 
             } else if (request.relType == "Husband") {
 
@@ -150,7 +162,10 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
                 // Adding Sender as Receiver's Husband
                 await Users.findOneAndUpdate(
                     { _id: request.receiverId },
-                    { wife: request.senderId }
+                    {
+                        wife: request.senderId,
+                        $pull: { connectReqs: request._id }
+                    }
                 )
             }
 
@@ -271,7 +286,8 @@ router.post('/unConnect/:id', tokenVerify, async (req, res) => {
                             parents: req.User,
                             children: req.User,
                         }
-                    }
+                    },
+                    { new: true }
                 )
 
                 await Users.findOneAndUpdate(
@@ -282,7 +298,8 @@ router.post('/unConnect/:id', tokenVerify, async (req, res) => {
                             parents: req.params.id,
                             children: req.params.id
                         }
-                    }
+                    },
+                    { new: true }
                 )
             }
 

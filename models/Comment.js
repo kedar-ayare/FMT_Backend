@@ -19,6 +19,22 @@ const Comment = mongoose.Schema({
     view: {
         type: Boolean,
         default: false
+    },
+    parentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    replyOf: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    postId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+    },
+    datetime: {
+        type: String,
+        required: true
     }
 })
 

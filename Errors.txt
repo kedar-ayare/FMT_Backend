@@ -18,3 +18,12 @@ Connect Error:
 3. ConnectErr-03 = Error processing the Request Decline Transactions
 4. ConnectErr-04 = Error processing the Request Accept Transactions 
 5. ConnectErr-05 = Error processing the Un Connect process transactions
+
+Post Error:
+1. PostErr-01 = Error Getting Post Data
+
+
+Comment Error:
+1. CommentErr-01 = No Caption sent to request
+2. CommentErr-02 = Error saving comment.
+2. CommentErr-03 = Error saving reply.

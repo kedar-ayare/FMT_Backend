@@ -48,7 +48,7 @@ router.get('/:name', tokenVerify, async (req, res) => {
         },
         { $sort: { matchCount: -1 } }
     ]);
-    console.log(kedar)
+    // console.log(kedar)
     res.json(users);
 });
 

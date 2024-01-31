@@ -123,7 +123,8 @@ router.get('/:id', tokenVerify, async (req, res) => {
     try {
         const user = await Users.findOne({ "_id": req.params.id })
             .populate('followReqs')
-            .populate('connectReqs');
+            .populate('connectReqs')
+            .populate('posts');
         if (!user) {
             return res.status(404).send({ error: "User not found" });
         }

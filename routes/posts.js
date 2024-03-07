@@ -64,7 +64,13 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', tokenVerify, async (req, res) => {
     try {
-        const post = await Posts.findOne({ _id: req.params.id }).populate('comments').populate('likes')
+        const post = await Posts.findOne({ _id: req.params.id }).populate({
+            path: 'comments',
+            populate: {
+                path: "userId",
+                select: "_id fname lname profileURL"
+            }
+        }).populate('likes')
         res.send({ post })
     } catch (err) {
         console.log(err)

@@ -147,6 +147,16 @@ router.get('/:id', tokenVerify, async (req, res) => {
 });
 
 
+router.get('/commentData/:id', tokenVerify, async (req, res) => {
+    try {
+        const userData = await Users.findOne({ _id: req.params.id }).select("_id fname lname profileURL")
+        res.send({ userData })
+    } catch (err) {
+        console.log(err)
+        res.send({ err: "Something wrong" })
+    }
+})
+
 
 
 

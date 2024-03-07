@@ -26,4 +26,7 @@ Post Error:
 Comment Error:
 1. CommentErr-01 = No Caption sent to request
 2. CommentErr-02 = Error saving comment.
-2. CommentErr-03 = Error saving reply.
+3. CommentErr-03 = Error saving reply.
+4. CommentErr-04 = Error getting comment data.
+5. CommentErr-05 = Error deleting comment and it's replies
+

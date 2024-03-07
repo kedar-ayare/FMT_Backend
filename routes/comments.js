@@ -121,7 +121,10 @@ router.get('/:id', tokenVerify, async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
-        const commentData = await Comment.findById({ _id: req.params.id })
+        const commentData = await Comment.findById({ _id: req.params.id }).populate({
+            path: "userId",
+            select: "_id fname lname profileURL"
+        })
         res.send({
             err: "OK",
             data: commentData

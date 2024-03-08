@@ -41,6 +41,11 @@ router.post('/', tokenVerify, async (req, res) => {
                 { $push: { comments: comment._id } }
             )
 
+            await Post.findOneAndUpdate(
+                { _id: req.body.postId },
+                { $inc: { commentCount: 1 } },
+                { new: true }
+            )
             res.send({ err: "OK" })
         } catch (err) {
             session.abortTransaction()
@@ -78,8 +83,9 @@ router.post('/reply', tokenVerify, async (req, res) => {
                 content: req.body.content,
                 userId: req.User,
                 replyOf: req.body.replyOf,
-                parentId: req.body.parentId,
-                datetime: new Date()
+                parentId: req.body.parentId, //main comment Id
+                datetime: new Date(),
+                postId: req.body.postId,
             })
             await comment.save();
 
@@ -87,14 +93,30 @@ router.post('/reply', tokenVerify, async (req, res) => {
             // Adding id to "replies" array of main Comment
             await Comment.findOneAndUpdate(
                 { _id: req.body.parentId },
-                { $push: { replies: comment._id } }
+                {
+                    $push: { replies: comment._id },
+                    $inc: { replyCount: 1 }
+                }
             )
 
-            // Adding id to "replies" array of immediate parent Comment
-            await Comment.findOneAndUpdate(
-                { _id: req.body.replyOf },
-                { $push: { replies: comment._id } }
+            if (req.body.parentId != req.body.replyOf) {
+                // Adding id to "replies" array of immediate parent Comment
+                await Comment.findOneAndUpdate(
+                    { _id: req.body.replyOf },
+                    {
+                        $push: { replies: comment._id },
+                        $inc: { replyCount: 1 }
+                    }
+                )
+
+            }
+
+            // Increasing the Comment Count field on post by 1
+            await Post.findOneAndUpdate(
+                { _id: req.body.postId },
+                { $inc: { commentCount: 1 } }
             )
+
             res.send({ err: "OK" })
         } catch (err) {
             session.abortTransaction()
@@ -151,10 +173,45 @@ router.delete('/:id', tokenVerify, async (req, res) => {
     try {
 
         var comment = await Comment.findById(id = req.params.id);
+        var decFac = comment["replies"].length + 1
+
+
+        // Updating count on the post Object
+        await Post.findOneAndUpdate(
+            { _id: comment.postId },
+            {
+                $inc: { commentCount: - decFac },
+                $pull: { comments: comment._id }
+            },
+            { new: true }
+        )
+
+        // Deleting child comments
         comment["replies"].forEach(async (element) => {
             await Comment.deleteOne({ _id: element })
         });
+
+        // Updating parent/main comment
+        await Comment.findOneAndUpdate(
+            { _id: comment.parentId },
+            {
+                $pull: { replies: { $in: [...comment["replies"], comment._id] } },
+                $inc: { replyCount: - decFac }
+            }
+        )
+        if (comment.parentId != comment.replyOf) {
+            await Comment.findOneAndUpdate(
+                { _id: comment.replyOf },
+                {
+                    $pull: { replies: comment._id },
+                    $inc: { replyCount: -decFac }
+                }
+            )
+        }
+
+        // Deleting the comment in context
         await Comment.deleteOne({ _id: comment._id })
+
         res.send({ err: "OK" })
     } catch (err) {
         session.abortTransaction()

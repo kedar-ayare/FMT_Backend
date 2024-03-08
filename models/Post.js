@@ -30,6 +30,11 @@ const Post = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
+    },
+    commentCount: {
+        type: Number,
+        required: true,
+        default: 0
     }
 })
 

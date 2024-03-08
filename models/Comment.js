@@ -35,6 +35,11 @@ const Comment = mongoose.Schema({
     datetime: {
         type: String,
         required: true
+    },
+    replyCount: {
+        type: Number,
+        required: true,
+        default: 0
     }
 })
 

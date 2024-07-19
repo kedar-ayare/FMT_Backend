@@ -51,8 +51,8 @@ router.post('/', async (req, res) => {
 */
 router.post('/login/', async (req, res) => {
 
+    console.log("API Started")
     var userEmail = await decrypt(req.body.email);
-    console.log(userEmail)
 
     var err = ""
 
@@ -99,12 +99,14 @@ router.post('/login/', async (req, res) => {
 */
 router.get('/', tokenVerify, async (req, res) => {
 
+    console.log("Getting Users")
+
     try {
         const user = await Users.findOne({ "_id": req.User });
         if (!user) {
             return res.status(404).send({ error: "User not found" });
         }
-        console.log(user);
+        // console.log(user);
         res.send(user);
     } catch (error) {
         console.error("Error fetching user:", error);
@@ -121,7 +123,7 @@ router.get('/', tokenVerify, async (req, res) => {
 */
 router.get('/:id', tokenVerify, async (req, res) => {
     try {
-        const user = await Users.findOne({ "_id": req.params.id })
+        const user = await Users.findOne({ "_id": req.params.id }).select("fname lname _id accountStat children connectReqs followReqs followerCount followingCount parents posts profileURL siblings followers")
             .populate('followReqs')
             .populate('connectReqs')
             .populate('posts');

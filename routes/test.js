@@ -20,6 +20,9 @@ aws.config.update({ region: "ap-south-1" })
 
 s3 = new aws.S3()
 
+router.get('/serverCheck/', async (req, res) =>{
+    res.send({msg:"working"})
+})
 
 router.post('/newPost/', upload.array('files', 10), async (req, res) => {
     if (!req.files || req.files.length === 0) {

@@ -93,7 +93,10 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
             //Adding Receiver User's Id to Sender User Following Array 
             await Users.findOneAndUpdate(
                 { _id: request.senderId },
-                { $push: { following: request.receiverId } },
+                {
+                    $push: { following: request.receiverId },
+                    $inc: { followingCount: 1 }
+                },
                 { new: true }
             )
 
@@ -102,7 +105,8 @@ router.post('/accept/:reqId', tokenVerify, async (req, res) => {
                 { _id: request.receiverId },
                 {
                     $push: { followers: request.senderId },
-                    $pull: { followReqs: req.params.reqId }
+                    $pull: { followReqs: req.params.reqId },
+                    $inc: { followerCount: 1 }
                 },
                 { new: true }
             )
@@ -199,13 +203,19 @@ router.post('/follow/:id', tokenVerify, async (req, res) => {
             //Adding Receiver User's Id to Sender User's Following Array
             await Users.findOneAndUpdate(
                 { _id: req.User },
-                { $push: { following: req.params.id } }
+                {
+                    $push: { following: req.params.id },
+                    $inc: { followingCount: 1 }
+                }
             )
 
             //Adding Sender User's Id to Receiver User's Followers Array
             await Users.findOneAndUpdate(
                 { _id: req.params.id },
-                { $push: { followers: req.User } }
+                {
+                    $push: { followers: req.User },
+                    $inc: { followerCount: 1 }
+                }
             )
 
             success = 1
@@ -248,14 +258,21 @@ router.post('/unfollow/:id', tokenVerify, async (req, res) => {
             //Removing Receiver User's Id from Sender User's Following Array
             await Users.findOneAndUpdate(
                 { _id: req.User },
-                { $pull: { following: req.params.id } },
+                {
+                    $pull: { following: req.params.id },
+                    $inc: { followingCount: -1 }
+                },
+
                 { new: true }
             )
 
             //Removing Sender User's Id from Reveiver User's Followers Array
             await Users.findOneAndUpdate(
                 { _id: req.params.id },
-                { $pull: { followers: req.User } },
+                {
+                    $pull: { followers: req.User },
+                    $inc: { followerCount: -1 }
+                },
                 { new: true }
             )
 

@@ -67,6 +67,16 @@ const User = mongoose.Schema({
             ref: "FollowReqs"
         }
     ],
+    followerCount: {
+        type: Number,
+        default: 0,
+        required: true
+    },
+    followingCount: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     connectReqs: [
         {
             type: mongoose.Schema.Types.ObjectId,

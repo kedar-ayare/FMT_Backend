@@ -10,6 +10,7 @@ async function tokenVerify(req, res, next) {
         try {
             const attatchedToken = await decrypt(req.headers.token);
             // console.log("token after decrypt: ", attatchedToken)
+            // const attatchedToken = req.headers.token
 
             try {
                 const decoded = jwt.verify(attatchedToken, process.env.JWT_SECRETE);

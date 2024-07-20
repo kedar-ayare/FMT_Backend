@@ -1,6 +1,7 @@
 Validation Errors:
 1. ValError-01 = No Attached Token
-2. ValError-02 = Token Either Expired or Invalid Token
+2. ValError-02 = Invalid/Malfunctioned Token
+2. ValError-02 = Token Either Expired or Incorrect Token
 
 
 Follow Error:

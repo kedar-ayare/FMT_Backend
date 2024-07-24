@@ -71,6 +71,7 @@ router.get('/:id', tokenVerify, async (req, res) => {
                 select: "_id fname lname profileURL"
             }
         }).populate('likes')
+        console.log(post)
         res.send({ post })
     } catch (err) {
         console.log(err)

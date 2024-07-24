@@ -134,6 +134,42 @@ router.post('/reply', tokenVerify, async (req, res) => {
 
 
 /*
+    '/replies/' - POST
+    Endpoint that gets comment replies details
+    Requires list of Ids (Comment)
+*/
+router.post('/replies/', tokenVerify, async (req, res) => {
+    if(req.body !== ""){
+
+
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        
+        try{
+            
+            // Looks for documents with Ids matching with ids in recieved list of Ids
+            // Populates UserId field so as to show User Name and image on profile
+            const replies = await Comment.find({_id : {$in: req.body}}).populate({
+                path: "userId",
+                select: "_id lname fname profileURL"
+            })
+            console.log(replies)
+            res.send(replies)
+
+        }catch(err){
+            session.abortTransaction()
+            console.log(err)
+            res.send("CommentErr-06")
+        }
+        session.endSession()
+
+    }else{
+        res.send({err:"CommentErr-01"})
+    }
+    
+})
+
+/*
     '/:id' - GET
     Fetches the comment and it's replies
     Comment Id in params

@@ -22,6 +22,8 @@ Connect Error:
 
 Post Error:
 1. PostErr-01 = Error Getting Post Data
+2. PostErr-02 = No Files attached to the request
+3. PostErr-03 = Error Creating Post record in MongoDB or error uploading images to AWS
 
 
 Comment Error:

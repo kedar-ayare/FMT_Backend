@@ -21,24 +21,47 @@ const encrypt = require("../utilities.js/encrypt")
     Sends user token as response.
 */
 router.post('/', async (req, res) => {
-    var dob = new Date();
-    const newUser = Users({
-        fname: req.body.fname,
-        lname: req.body.lname,
-        gender: req.body.gender,
-        dob: Date(),
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone,
-        edu: req.body.edu,
-        empStatus: req.body.empStatus,
-        profileURL: req.body.profileURL
 
-    });
-    await newUser.save();
-    const token = jwt.sign({ id: newUser._id, email: 'kedarayareilr@gmail.com' }, process.env.JWT_SECRETE, { expiresIn: '90d' });
+    const existingUser = await Users.findOne({email: req.body.email})
+    if(existingUser){
+        return res.status(409).json({msg: "User already exists"})
+    }
 
-    res.json({ token });
+    const email = req.body.email;
+
+    if (!email) {
+        return res.status(400).json({ msg: "Email is required" });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ msg: "Invalid email format" });
+    }
+
+    try{
+        var dob = new Date();
+        const newUser = Users({
+            fname: req.body.fname,
+            lname: req.body.lname,
+            gender: req.body.gender,
+            dob: req.body.dob,
+            email: req.body.email,
+            password: req.body.password,
+            phone: req.body.phone,
+            edu: req.body.edu,
+            empStatus: req.body.empStatus,
+            profileURL: req.body.profileURL
+
+        });
+        await newUser.save();
+        const token = jwt.sign({ id: newUser._id, email: 'kedarayareilr@gmail.com' }, process.env.JWT_SECRETE, { expiresIn: '90d' });
+
+        res.json({ token });
+    }catch(error){
+        res.status(400).json({msg: error})
+    }
+    
 })
 
 

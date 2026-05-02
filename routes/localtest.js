@@ -21,7 +21,7 @@ aws.config.update({ region: "ap-south-1" })
 
 s3 = new aws.S3()
 
-router.get('/serverCheck/', async (req, res) =>{
+router.get('/serverCheck', async (req, res) =>{
     res.send({msg:"working"})
 })
 

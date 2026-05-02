@@ -10,6 +10,10 @@ const { default: mongoose } = require('mongoose');
 const { error } = require('winston');
 
 
+
+router.post('/kedarayare/', async(req, res)=> {
+    res.send("Hello")
+})
 /*
 POST - /request/:id
 
@@ -320,7 +324,6 @@ router.post('/unConnect/:id', tokenVerify, async (req, res) => {
         res.send({ err: "ConnectErr-01" })
     }
 })
-
 
 
 module.exports = router;

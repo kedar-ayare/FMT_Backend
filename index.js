@@ -7,7 +7,7 @@ const searchRoutes = require('./routes/search');
 const comments = require('./routes/comments');
 const request = require('./routes/relationships');
 const validation = require('./routes/validation');
-const test = require('./routes/test');
+const test = require('./routes/localtest');
 const posts = require('./routes/posts');
 const follow = require('./routes/follower');
 const connect = require('./routes/connect');
@@ -78,7 +78,7 @@ app.use('/api/search', searchRoutes)
 app.use('/api/comments', comments)
 app.use('/api/request', request)
 app.use('/api/validation', validation)
-app.use('/api/test', test)
+app.use('/api/localtest', test)
 app.use('/api/follow', follow)
 app.use('/api/connect', connect)
 

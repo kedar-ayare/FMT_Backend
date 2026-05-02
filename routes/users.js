@@ -23,16 +23,16 @@ const encrypt = require("../utilities.js/encrypt")
 router.post('/', async (req, res) => {
     var dob = new Date();
     const newUser = Users({
-        fname: 'Revati',
-        lname: 'Ayare',
-        gender: 'Female',
+        fname: req.body.fname,
+        lname: req.body.lname,
+        gender: req.body.gender,
         dob: Date(),
-        email: 'Revatiayare@gmail.com',
-        password: 'Revatiayare',
-        phone: '8692056130',
-        edu: 'High School',
-        empStatus: 'unemployed',
-        profileURL: "https://myfamtree.000webhostapp.com/appImages/revati.jpg"
+        email: req.body.email,
+        password: req.body.password,
+        phone: req.body.phone,
+        edu: req.body.edu,
+        empStatus: req.body.empStatus,
+        profileURL: req.body.profileURL
 
     });
     await newUser.save();
@@ -61,9 +61,10 @@ router.post('/login/', async (req, res) => {
         console.log("LogErr - 01")
     } else {
         var userPassword = await decrypt(req.body.password)
+        console.log(userEmail, userPassword)
         try {
             console.log("Incoming:", userEmail)
-            var user = await Users.findOne({ email: "kedarayareilr@gmail.com" });
+            var user = await Users.findOne({ email: userEmail });
         } catch (error) {
             console.log(error)
         }

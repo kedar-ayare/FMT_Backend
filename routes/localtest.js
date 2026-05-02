@@ -11,6 +11,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage })
 
 const Posts = require("../models/Post")
+const Users = require("../models/User")
 
 const jwt = require("jsonwebtoken")
 
@@ -108,6 +109,33 @@ router.post('/addPost/', async (req, res) => {
     })
     await newPost.save()
     res.send({ "id": newPost._id })
+})
+
+
+router.post('/follow/', async (req, res) => {
+    const ids = [
+        "6460f80082a63e8eef2ca825",
+        "6462534d04184a090fa0ebef",
+        "64871017127db05df55bb447",
+        "64871043f60d324e16e7a669",
+
+        "6487108418a538e3eb2b7352",
+        "67c5f2d6b927aefe8ab7034d",
+        "67c5f33cb927aefe8ab7034f",
+        "6696c0522ab30fe76140cbda",
+        "67c5f386b927aefe8ab70351"
+    ]
+
+    for(let i = 1; i < ids.length-1; i ++){
+        var temp = ids.filter((id) => id !=ids[i] )
+        const user = await Users.findOneAndUpdate(
+            {_id: ids[i]},
+            {$set:{followers:temp}},
+            {returnDocument: "after"}
+        )
+        console.log(user)
+    }
+    res.send({err:"OK"})
 })
 
 module.exports = router

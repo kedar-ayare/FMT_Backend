@@ -3,6 +3,7 @@ const express = require('express');
 const multer = require('multer')
 
 const Posts = require("../models/Post")
+const User = require("../models/User")
 const tokenVerify = require("../middlewares/auth");
 
 const storage = multer.memoryStorage();
@@ -35,8 +36,7 @@ router.post('/newPost/', upload.array('files', 10), tokenVerify, async (req, res
                 Bucket: "myfamilytree2000",
                 Key: `${newPost._id}-${index}`,
                 Body: file.buffer,
-                ContentType: file.mimetype,
-                ACL: 'public-read'
+                ContentType: file.mimetype
             };
 
             return new Promise((resolve, reject) => {
@@ -54,6 +54,10 @@ router.post('/newPost/', upload.array('files', 10), tokenVerify, async (req, res
 
         newPost.images = uploadedImages;
         await newPost.save();
+        const updateUser = await User.findOne({_id: req.User})
+        updateUser.posts.push(newPost._id)
+        await updateUser.save();    
+
         res.send({ id: newPost._id });
 
     } catch (error) {
@@ -69,14 +73,19 @@ router.post('/newPost/', upload.array('files', 10), tokenVerify, async (req, res
         if (newPost) {
             await Posts.findByIdAndDelete(newPost._id);
         }
-
+        console.log(error)
         res.status(500).send({err: "PostErr-03"});
     }
 });
 
 
 
-router.get('/', async (req, res) => {
+router.get('/', tokenVerify,async (req, res) => {
+    const reqUser = await User.find({_id: req.User})
+    console.log(reqUser)
+    const posts = await Posts.find({author:{$in: req.User.following, $exists: true}})
+                                .sort({datetime: -1})
+    console.log(posts)
     res.send("Get all posts")
 })
 

@@ -73,47 +73,51 @@ router.post('/', async (req, res) => {
     Send an error code if either field invalid or sends a jwt token.
 */
 router.post('/login/', async (req, res) => {
-
-    console.log("API Started")
-    var userEmail = await decrypt(req.body.email);
-
-    var err = ""
-
-    if (userEmail === "" || userEmail == undefined || userEmail == null) {
-        res.send({ err: "LogErr - 01" })
-        console.log("LogErr - 01")
-    } else {
-        var userPassword = await decrypt(req.body.password)
-        console.log(userEmail, userPassword)
-        try {
-            console.log("Incoming:", userEmail)
-            var user = await Users.findOne({ email: userEmail });
-        } catch (error) {
-            console.log(error)
+    try {
+        // 🔹 Validate presence
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({ err: "LogErr - 01" });
         }
 
-        if (user == null) {
-            res.send({ err: "LogErr - 02" })
-            console.log("LogErr - 02")
-        }
-        else if (user.password == userPassword) {
-            const _token = jwt.sign({ id: user._id }, process.env.JWT_SECRETE, { expiresIn: '90d' })
-            // console.log(_token)
-            console.log("Login Success")
-            const eToken = await encrypt(_token)
-            const eUSerId = await encrypt(user._id.toString())
+        // 🔹 Decrypt
+        const userEmail = await decrypt(req.body.email);
+        const userPassword = await decrypt(req.body.password);
 
-            res.send({ token: eToken, userID: eUSerId })
-        } else {
-            res.send({ err: "LogErr - 03" })
-            console.log("LogErr - 03")
+        if (!userEmail || !userPassword) {
+            return res.status(400).json({ err: "LogErr - 01" });
         }
+
+        // 🔹 Find user
+        const user = await Users.findOne({ email: userEmail });
+
+        if (!user) {
+            return res.status(400).json({ err: "LogErr - 02" });
+        }
+
+        // 🔹 Check password
+        if (user.password !== userPassword) {
+            return res.status(400).json({ err: "LogErr - 03" });
+        }
+
+        // 🔹 Generate token
+        const _token = jwt.sign(
+            { id: user._id },
+            process.env.JWT_SECRETE,
+            { expiresIn: '90d' }
+        );
+
+        const eToken = await encrypt(_token);
+        const eUserId = await encrypt(user._id.toString());
+
+        return res.status(200).json({
+            token: eToken,
+            userID: eUserId
+        });
+
+    } catch (error) {
+        return res.status(500).json({ err: "Internal Server Error" });
     }
-
-
-    // res.send("Something")
-
-})
+});
 
 
 /*
@@ -123,17 +127,14 @@ router.post('/login/', async (req, res) => {
 */
 router.get('/', tokenVerify, async (req, res) => {
 
-    console.log("Getting Users")
 
     try {
         const user = await Users.findOne({ "_id": req.User });
         if (!user) {
             return res.status(404).send({ error: "User not found" });
         }
-        // console.log(user);
         res.send(user);
     } catch (error) {
-        console.error("Error fetching user:", error);
         res.status(500).send({ error: "Internal server error" });
     }
 });
@@ -167,7 +168,6 @@ router.get('/:id', tokenVerify, async (req, res) => {
         });
         res.send(user);
     } catch (error) {
-        console.error("Error fetching user:", error);
         res.status(500).send({ error: "Internal server error" });
     }
 });
@@ -178,7 +178,6 @@ router.get('/commentData/:id', tokenVerify, async (req, res) => {
         const userData = await Users.findOne({ _id: req.params.id }).select("_id fname lname profileURL")
         res.send({ userData })
     } catch (err) {
-        console.log(err)
         res.send({ err: "Something wrong" })
     }
 })
@@ -198,9 +197,7 @@ router.delete('/:id', (req, res) => {
 
 //Router to get info of loggedin User
 // router.get('/', tokenVerify, async (req, res) => {
-//     // console.log(req.User)
 //     const user = await Users.findOne({ email: "kedarayareilr@gmail.com" })
-//     console.log(user)
 //     // res.send({ "name": "Kedar" })
 
 

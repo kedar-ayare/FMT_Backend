@@ -131,9 +131,9 @@ router.get('/', tokenVerify, async (req, res) => {
     try {
         const user = await Users.findOne({ "_id": req.User });
         if (!user) {
-            return res.status(404).send({ error: "User not found" });
+            return res.status(404).send({ err: "User not found" });
         }
-        res.send(user);
+        res.status(200).send({user});
     } catch (error) {
         res.status(500).send({ error: "Internal server error" });
     }
@@ -190,8 +190,14 @@ router.put('/', (req, res) => {
     res.send("Update a user")
 })
 
-router.delete('/:id', (req, res) => {
-    res.send("Delete a user")
+router.delete('/:id', async (req, res) => {
+    try{
+        await Users.findByIdAndDelete({_id: req.params.id})
+        res.status(200).send({msg:"Delete a user"})
+    }catch(err){
+        res.status(400).json(err)
+    }
+    
 })
 
 

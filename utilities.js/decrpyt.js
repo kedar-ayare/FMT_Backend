@@ -6,9 +6,11 @@ async function decrypt(data) {
         data == "" || data == undefined){
         return data
     }
-    let bytes = crypt.AES.decrypt(data, 'kedarayare');
-    let originalText = bytes.toString(crypt.enc.Utf8);
-    return originalText
+        let bytes = crypt.AES.decrypt(data, 'kedarayare');
+        let originalText = bytes.toString(crypt.enc.Utf8);
+        return originalText
+
+    
 }
 
 module.exports = decrypt;

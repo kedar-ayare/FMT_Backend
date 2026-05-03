@@ -411,3 +411,88 @@ describe('Users - Login', () => {
 })
 
 
+describe('Users - Fetch User', () => {
+    beforeAll(async () => {
+        if (!process.env.DB_URL_TEST) {
+            throw new Error("DB_URL_TEST missing");
+        }
+        await mongoose.connect(process.env.DB_URL_TEST);
+    });
+
+    afterAll(async () => {
+        await mongoose.connection.close();
+    });
+
+    afterEach(async () => {
+        await mongoose.connection.db.dropDatabase();
+    });
+
+    it('should fetch user from the token', async () => {
+        const userData = {
+            fname: "Test",
+            lname: "User",
+            dob: Date(),
+            email: `testemail2000@gmail.com`,
+            password: "1234",
+            phone: "1000",
+            edu: "B.Tech",
+            empStatus: "Vella"
+        }
+        
+        const signupRes = await request(app).post('/api/users').send(userData)
+        const token = await encrypt(signupRes.body.token)
+
+
+        const res = await request(app).get('/api/users').set('token', token)
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toHaveProperty('user')
+        
+    })
+
+    it('token missing hence fail', async () => {
+        const res = await request(app).get('/api/users')
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toHaveProperty('err')
+        expect(res.body.err).toBe('ValError-01')
+    })
+
+    it('invalid token hence fails', async () => {
+        const res = await request(app).get('/api/users').set('token',"InvalidString")
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toHaveProperty('err')
+        expect(res.body.err).toBe('ValError-03')
+    })
+
+    it('valid token but user deleted', async () => {
+        const userData = {
+            fname: "Test",
+            lname: "User",
+            dob: Date(),
+            email: `testemail2000@gmail.com`,
+            password: "1234",
+            phone: "1000",
+            edu: "B.Tech",
+            empStatus: "Vella"
+        }
+        
+        const signupRes = await request(app).post('/api/users').send(userData)
+        const token = await encrypt(signupRes.body.token)
+
+
+
+        const getUserRes = await request(app).get('/api/users').set('token', token)
+        const userID = getUserRes.body.user._id
+
+
+        const deleteRes = await request(app).delete(`/api/users/${userID}`)
+
+
+        const res = await request(app).get('/api/users').set('token', token)
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toHaveProperty('err')
+        expect(res.body.err).toBe("User not found")
+        
+    })
+
+
+})

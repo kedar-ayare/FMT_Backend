@@ -174,12 +174,22 @@ router.get('/:id', tokenVerify, async (req, res) => {
 
 
 router.get('/commentData/:id', tokenVerify, async (req, res) => {
-    try {
-        const userData = await Users.findOne({ _id: req.params.id }).select("_id fname lname profileURL")
-        res.send({ userData })
-    } catch (err) {
-        res.send({ err: "Something wrong" })
+    if(req.params.id == "" || req.params.id == undefined){
+        res.status(400).json({err: "User Id not found"})
+    }else{
+        try {
+            const userObj = await Users.findOne({ _id: req.params.id }).select("_id fname lname profileURL")
+            if(userObj){
+                res.status(200).send({ userObj })
+            }else{
+                res.status(404).send({err: "User not found"})
+            }
+            
+        } catch (err) {
+            res.status(400).send({ err: "Something wrong" })
+        }
     }
+    
 })
 
 
@@ -191,6 +201,7 @@ router.put('/', (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
+    
     try{
         await Users.findByIdAndDelete({_id: req.params.id})
         res.status(200).send({msg:"Delete a user"})

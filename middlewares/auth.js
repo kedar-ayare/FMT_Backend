@@ -17,7 +17,6 @@ async function tokenVerify(req, res, next) {
                 res.status(400).json({ err: "ValError-03" })
             }
         } catch (err) {
-            console.log(err)
             res.status(400).json({err:"ValError-02"})
         }
     }

@@ -153,7 +153,7 @@ router.get('/:id', tokenVerify, async (req, res) => {
             .populate('connectReqs')
             .populate('posts');
         if (!user) {
-            return res.status(404).send({ error: "User not found" });
+            return res.status(404).send({ err: "User not found" });
         }
         fieldsToRemove = [
             "password",
@@ -162,11 +162,11 @@ router.get('/:id', tokenVerify, async (req, res) => {
             "searched",
             "__v",
         ]
-
+        let userObj = user.toObject()
         fieldsToRemove.forEach(element => {
-            user[element] = undefined
+            userObj[element] = undefined
         });
-        res.send(user);
+        res.send({userObj});
     } catch (error) {
         res.status(500).send({ error: "Internal server error" });
     }
